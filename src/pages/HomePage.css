@@ -1,0 +1,47 @@
+.home-container{
+    padding: 2%;
+    display: flex;
+    gap: 10px;
+}
+
+.rooms-container{
+    background-color: white;
+    flex: 1;
+    padding: 10px;
+    border: 2px solid rgb(89, 131, 135);
+    border-radius: 10px;
+    height: 600px;
+    overflow-y: auto;
+
+    scrollbar-width: thin; /* Width of the scrollbar */
+}
+
+.rooms-container::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+    border-radius: 10px;
+  }
+  
+.rooms-container::-webkit-scrollbar-thumb {
+    background-color: #6e6f74; /* Color of the thumb */
+    border-radius: 10px;
+  }
+  
+.rooms-container::-webkit-scrollbar-track {
+    background-color: #ffffff; /* Color of the track */
+    border-radius: 10px;
+}
+
+.messages-container{
+    background-color: white;
+    flex: 4;
+    padding: 10px;
+    border: 2px solid rgb(89, 131, 135);
+    border-radius: 5px;
+}
+
+.room{
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin: 5px;
+    padding: 10px 20px;
+}
