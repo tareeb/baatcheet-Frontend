@@ -87,8 +87,14 @@ button {
     font-weight: 400;
     margin: 5px;
     padding: 10px;
-    transition: all .5s;
+    transition: all 0.6s;
     width: 100%;
+}
+
+button:hover {
+    background-color: #068272ce;
+    color: #fff;
+    cursor: pointer;
 }
 
 /* media Query */

@@ -19,6 +19,24 @@ function SignupPage() {
     const getPassword = (event) => {    password = event.target.value;  }
     const getConfirmPassword = (event) => {     confirmPassword = event.target.value;   }
 
+    async function signup(data){
+        const fetchData = await fetch('http://localhost:8000/signup/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    },
+                body: data
+            });
+        const response = await fetchData.json();
+        console.log(response);
+
+    
+        if(response){
+            window.location.href = "/login";
+        }
+        
+    }
+
 
 
     function signupfunction(event){
@@ -28,8 +46,8 @@ function SignupPage() {
         
         // Username Validation
 
-        if(username.length < 6){
-            setUsernameError("At least 6 char long"); //check if username already exists
+        if(username.length < 5){
+            setUsernameError("At least 5 char long"); //check if username already exists
             usernameValidation.current.style.display = "block";
             return;
         }else {
@@ -39,8 +57,8 @@ function SignupPage() {
 
         // Password Validation
 
-        if(password.length < 10){
-            setPasswordError("At least 10 char long");
+        if(password.length < 5){
+            setPasswordError("At least 5 char long");
             passwordValidation.current.style.display = "block";
             return;
         }else if(password !== confirmPassword){
@@ -56,8 +74,13 @@ function SignupPage() {
         console.log(username);
         console.log(password);
         console.log(confirmPassword);
-       
+        
+        const data = JSON.stringify({
+            username: username,
+            password: password
+        });
 
+        signup(data);
         
     }
 

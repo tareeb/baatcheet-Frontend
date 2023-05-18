@@ -4,9 +4,14 @@
   box-sizing: border-box;
 }
 
+body{
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 body {
   margin: 0;
-  background-color: rgb(90, 120, 138);
+  background-color: #5b788b;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

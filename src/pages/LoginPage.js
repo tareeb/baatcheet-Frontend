@@ -5,7 +5,13 @@ import { useState , useRef } from 'react';
 var username = "" ;
 var password = "";
 
-function LoginPage() {
+    const storedToken = localStorage.getItem('token');
+
+function LoginPage() {  
+    
+    if(storedToken){
+        window.location.href = "/home";
+    }
 
     const [usernameError , setUsernameError] = useState("");
     const [passwordError , setPasswordError] = useState("");
@@ -13,19 +19,41 @@ function LoginPage() {
     const usernameValidation = useRef();
     const passwordValidation = useRef();
 
-    
     const getUserName = (event) => {    username = event.target.value;  }
     const getPassword = (event) => {    password = event.target.value;  }
+
+    async function signin(data){
+        console.log("hey");
+        const fetchData = await fetch('http://localhost:8000/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    },
+                body: data
+            });
+        const response = await fetchData.json();
+        console.log(response);
+
+        if(response.token){
+            localStorage.setItem('token', response.token.key);
+            localStorage.setItem('username', response.user_profile.username);
+            window.location.href = "/home";
+        
+        }else if(response.error){
+            setPasswordError(response.error);   
+            passwordValidation.current.style.display = "block";
+            return;
+        }
+    }   
 
     function loginfunction(event){
        
         event.preventDefault();
-
-        
+  
         // Username Validation
 
-        if(username.length < 6){
-            setUsernameError("At least 6 char long"); //username inccorect
+        if(username.length == 0){
+            setUsernameError("Please Enter Username"); //username inccorect
             usernameValidation.current.style.display = "block";
             return;
         }else {
@@ -35,8 +63,8 @@ function LoginPage() {
 
         // Password Validation
 
-        if(password.length < 10){
-            setPasswordError("At least 10 char long");      //password inccorect
+        if(password.length == 0){
+            setPasswordError("Please Enter Password");      //password inccorect
             passwordValidation.current.style.display = "block";
             return;
         }else {
@@ -47,6 +75,15 @@ function LoginPage() {
         // Send data to backend
         console.log(username);
         console.log(password);
+
+        const data = JSON.stringify({
+            username: username ,
+            password: password
+        });
+
+        signin(data);
+
+        
         
     }
 
@@ -54,7 +91,7 @@ function LoginPage() {
         <div className='loginpage'>
             <div className='hero_content'>
                 <h1>Sign In</h1>
-                <p>Let's Connect With the World</p>
+                <p>Let's Connect World with Words</p>
             </div>
 
             <form className='login'>
@@ -79,7 +116,7 @@ function LoginPage() {
                 </div>
 
                 <div className="submit-btn-continer" onClick={loginfunction} >
-                    <button>Create account</button>
+                    <button>Sign In</button>
                 </div>
                 
 
